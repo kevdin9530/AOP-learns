@@ -1,2 +1,100 @@
 Aspect-Oriented Programming learning note:
 
+In life we might encounter these 2 main problems>
+1. Code tangling: basically adding some extra code for your classes
+2. Code scattering: update some code for your classes
+These might sounds easy but for example, you add a logging or security code inside
+ for all classes inside a server. It might require ton of time and coding. 
+ What is the solution to these problem?
+ 
+Inheritance? Not really, since u will create a baseclass and all classes 
+still need to extend this. and sadly java doesnt allow multiple inheritance
+so if a class already have one, you cant extend another one
+
+Delegation then? Not that either since you still have to update
+those classes if you want to add/remove logging/security or add
+new feature and so on.
+
+In this AOP (programming technique based on concept of an aspect),
+aspect will encapsulates those cross-cutting concern. 
+For example instead of putting logging or security code inside each class
+You can capsulate the logging/security in a module or a reuseable class and 
+have it called whenever other class is used.
+So an aspect can be reused in multiple location and they
+can be applied based on configuration.
+
+so in normal AOP solution
+you should apply a proxy design pattern
+Like when you use a main app and the main app will call the method to do something.
+There will be a proxy in the background doing something else while you dont know about it
+
+The benefit of AOP:
+- Only need to be defined in a single class
+- Better than scattering everywhere
+- Can be reuse and easy to change
+- Your business code is clearer
+- Reduce code complexity
+- Configurable
+- Easy to apply aspect to different part of the app
+- no need to make change to the main app
+
+AOP use cases: 
+- Most common: logging, security, transaction
+- Audit logging: who, what, when, where
+- Exception handling: log exception, notify DevOp through sms/email
+- API management: call method counter, analytics data like peak time, average load and so on...
+
+Advantages: 
+- Reuseable module
+- Resolve code tangling
+- Resolve code scatter
+- Applied selective based on config
+
+Disadvantages:
+- Too many aspects can lead to complex app flow which make hard to follow.
+- Minor performance cost for aspect execution (run-time weaving)
+
+AOP terminology:
+- Aspect: module of code for a cross-cutting concern
+- Advice: what action is taken and when should be applied
+- Join Point: when to apply code during program execution 
+- Pointcut: a predicate expression for where advice should be applied.
+
+Advice type:
+- Before advice: run before the method
+- After finally advice: run after the method (like finally)
+- After returning advice: run after the method (success execution)
+- After throwing advice: run after method (if exeception throw)
+- Around advice: run before and after method
+
+Weaving (to connect aspect to target object to create an advised object):
+there are different type of weaving:
+- Compile-time,load-time or run-time
+Use proxy pattern
+Run-time weaving is has the slowest performance. 
+
+The most leading AOP framework:
+- Spring AOP: provide AOP support out of the box. 
+Key component includes Security, transcations, caching etc. They use run-time weaving of aspects
+- AspectJ: the original AOP framework. Provides complete support for AOP.
+Rich support for join point: method level, constructor, field etc.
+code weaving: compile-time, post compile-time and load-time
+
+Advantages of Spring AOP:
+- Simpler to use than AspectJ
+- Can migrate to AspectJ when using @Aspect anno
+- Use proxy pattern 
+Disadvantages:
+- Only supports method-level join points
+- Can only apply aspects to Bean create by Spring app context
+- Minor performance cost due to run-time weaving.
+
+AspectJ Advantages:
+- Support all join point
+- Work with any POJO, not just bean from app context
+- Faster performance compare to Spring AOP
+- Complete AOP support
+Disadvantages:
+- Compile-time weaving costs extra compilation steps 
+- AspectJ pointcut syntax can be very complex.
+
